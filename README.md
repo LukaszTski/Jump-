@@ -8,8 +8,8 @@ tydzień 3 przyciski i wyskakujące okna
 
 tydzień 4 skakanie obiektu
 
-tydzień 5 dopracowanie skakania, klikane przyciski
+tydzień 5 
 
-tydzień 6 mapy, licznik gwiazdek, poruszanie "mapy" w bok
+tydzień 6  dopracowanie skakania, klikane przyciski
 
-tydzień 7 testy i poprawki
+tydzień 7 mapy, licznik gwiazdek, poruszanie "mapy" w bok
