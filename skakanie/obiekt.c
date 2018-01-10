@@ -4,19 +4,19 @@
 const float FPS = 60;
 const int SCREEN_W = 1024;
 const int SCREEN_H = 768;
-const int BOUNCER_SIZE = 16;
+const int OBJECT_SIZE = 16;
 enum MYKEYS {
-   KEY_UP
+	KEY_UP
 };
 
 int main() {
 	ALLEGRO_DISPLAY *display = NULL;
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 	ALLEGRO_TIMER *timer = NULL;
-	ALLEGRO_BITMAP *bouncer = NULL;
-	float bouncer_x = SCREEN_W / 2.0 - BOUNCER_SIZE / 2.0;
-	float bouncer_y = SCREEN_H / 2.0 - BOUNCER_SIZE / 2.0;
-	float bouncer_dy = 0;
+	ALLEGRO_BITMAP *object = NULL;
+	float object_x = SCREEN_W / 2.0 - OBJECT_SIZE / 2.0;
+	float object_y = SCREEN_H / 2.0 - OBJECT_SIZE / 2.0;
+	float object_dy = 0;
 	float gravity = 0.7;
 	float lift = -6.0;
 
@@ -46,15 +46,15 @@ int main() {
 		return -1;
 	}
 
-	bouncer = al_create_bitmap(BOUNCER_SIZE, BOUNCER_SIZE);
-	if (!bouncer) {
-		fprintf(stderr, "failed to create bouncer bitmap!\n");
+	object = al_create_bitmap(OBJECT_SIZE, OBJECT_SIZE);
+	if (!object) {
+		fprintf(stderr, "failed to create object bitmap!\n");
 		al_destroy_display(display);
 		al_destroy_timer(timer);
 		return -1;
 	}
 
-	al_set_target_bitmap(bouncer);
+	al_set_target_bitmap(object);
 
 	al_clear_to_color(al_map_rgb(255, 100, 100));
 
@@ -63,7 +63,7 @@ int main() {
 	event_queue = al_create_event_queue();
 	if (!event_queue) {
 		fprintf(stderr, "failed to create event_queue!\n");
-		al_destroy_bitmap(bouncer);
+		al_destroy_bitmap(object);
 		al_destroy_display(display);
 		al_destroy_timer(timer);
 		return -1;
@@ -87,16 +87,16 @@ int main() {
 		al_wait_for_event(event_queue, &ev);
 
 		if (ev.type == ALLEGRO_EVENT_TIMER) {
-			if (bouncer_y < 0 || bouncer_y > SCREEN_H - BOUNCER_SIZE) {
-				bouncer_y = SCREEN_H - BOUNCER_SIZE;
-				bouncer_dy = -1;
+			if (object_y < 0 || object_y > SCREEN_H - OBJECT_SIZE) {
+				object_y = SCREEN_H - OBJECT_SIZE;
+				object_dy = -1;
 			}
 
-			bouncer_dy += gravity;
-			bouncer_y += bouncer_dy;
+			object_dy += gravity;
+			object_y += object_dy;
 
-			if (key[KEY_UP] && bouncer_y >= 0) {
-				bouncer_dy += lift;
+			if (key[KEY_UP] && object_y >= 0) {
+				object_dy += lift;
 			}
 
 
@@ -125,13 +125,13 @@ int main() {
 
 			al_clear_to_color(al_map_rgb(0, 0, 0));
 
-			al_draw_bitmap(bouncer, bouncer_x, bouncer_y, 0);
+			al_draw_bitmap(object, object_x, object_y, 0);
 
 			al_flip_display();
 		}
 	}
 
-	al_destroy_bitmap(bouncer);
+	al_destroy_bitmap(object);
 	al_destroy_timer(timer);
 	al_destroy_display(display);
 	al_destroy_event_queue(event_queue);
