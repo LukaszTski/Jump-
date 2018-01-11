@@ -4,7 +4,7 @@
 const float FPS = 60;
 const int SCREEN_W = 1024;
 const int SCREEN_H = 768;
-const int OBJECT_SIZE = 16;
+const int OBJECT_SIZE = 20;
 enum MYKEYS {
 	KEY_SPACE
 };
@@ -17,8 +17,8 @@ int main() {
 	float object_x = SCREEN_W / 3.0;
 	float object_y = SCREEN_H;
 	float object_dy = 0;
-	float gravity = 0.7;
-	float lift = -15.0;
+	float gravity = 1.3;
+	float lift = -20.0;
 
 	bool key[1] = { false };
 	bool redraw = true;
@@ -96,13 +96,19 @@ int main() {
 				object_y = SCREEN_H - OBJECT_SIZE;
 			}
 
+			if (object_y < OBJECT_SIZE) {
+				object_dy *= 0;
+				object_y = OBJECT_SIZE;
+
+			}
+
 			if (key[KEY_SPACE] && object_dy == 0) {
 				object_dy += lift;
 			}
 
-			
 
-			
+
+
 
 
 			redraw = true;
