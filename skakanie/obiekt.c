@@ -6,7 +6,7 @@ const int SCREEN_W = 1024;
 const int SCREEN_H = 768;
 const int OBJECT_SIZE = 16;
 enum MYKEYS {
-	KEY_UP
+	KEY_SPACE
 };
 
 int main() {
@@ -14,13 +14,13 @@ int main() {
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 	ALLEGRO_TIMER *timer = NULL;
 	ALLEGRO_BITMAP *object = NULL;
-	float object_x = SCREEN_W / 2.0 - OBJECT_SIZE / 2.0;
-	float object_y = SCREEN_H / 2.0 - OBJECT_SIZE / 2.0;
+	float object_x = SCREEN_W / 3.0;
+	float object_y = SCREEN_H;
 	float object_dy = 0;
 	float gravity = 0.7;
-	float lift = -6.0;
+	float lift = -15.0;
 
-	bool key[4] = { false };
+	bool key[1] = { false };
 	bool redraw = true;
 
 	if (!al_init()) {
@@ -87,17 +87,22 @@ int main() {
 		al_wait_for_event(event_queue, &ev);
 
 		if (ev.type == ALLEGRO_EVENT_TIMER) {
-			if (object_y < 0 || object_y > SCREEN_H - OBJECT_SIZE) {
-				object_y = SCREEN_H - OBJECT_SIZE;
-				object_dy = -1;
-			}
 
 			object_dy += gravity;
 			object_y += object_dy;
 
-			if (key[KEY_UP] && object_y >= 0) {
+			if (object_y > SCREEN_H - OBJECT_SIZE) {
+				object_dy *= 0;
+				object_y = SCREEN_H - OBJECT_SIZE;
+			}
+
+			if (key[KEY_SPACE] && object_dy == 0) {
 				object_dy += lift;
 			}
+
+			
+
+			
 
 
 			redraw = true;
@@ -107,15 +112,15 @@ int main() {
 		}
 		else if (ev.type == ALLEGRO_EVENT_KEY_DOWN) {
 			switch (ev.keyboard.keycode) {
-			case ALLEGRO_KEY_UP:
-				key[KEY_UP] = true;
+			case ALLEGRO_KEY_SPACE:
+				key[KEY_SPACE] = true;
 				break;
 			}
 		}
 		else if (ev.type == ALLEGRO_EVENT_KEY_UP) {
 			switch (ev.keyboard.keycode) {
-			case ALLEGRO_KEY_UP:
-				key[KEY_UP] = false;
+			case ALLEGRO_KEY_SPACE:
+				key[KEY_SPACE] = false;
 				break;
 			}
 		}
