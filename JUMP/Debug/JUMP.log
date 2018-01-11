@@ -1,0 +1,3 @@
+﻿  jump.c
+c:\users\łukasz\source\repos\jump\jump\jump.c(43): warning C4013: niezdefiniowany "al_init_image_addon"; przy założeniu, że extern zwraca int
+  JUMP.vcxproj -> C:\Users\Łukasz\source\repos\JUMP\Debug\JUMP.exe
