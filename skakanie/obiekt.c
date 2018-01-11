@@ -4,7 +4,7 @@
 const float FPS = 60;
 const int SCREEN_W = 1024;
 const int SCREEN_H = 768;
-const int OBJECT_SIZE = 20;
+const int CHARACTER_SIZE = 20;
 enum MYKEYS {
 	KEY_SPACE
 };
@@ -13,10 +13,10 @@ int main() {
 	ALLEGRO_DISPLAY *display = NULL;
 	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
 	ALLEGRO_TIMER *timer = NULL;
-	ALLEGRO_BITMAP *object = NULL;
-	float object_x = SCREEN_W / 3.0;
-	float object_y = SCREEN_H;
-	float object_dy = 0;
+	ALLEGRO_BITMAP *character = NULL;
+	float character_x = SCREEN_W / 3.0;
+	float character_y = SCREEN_H;
+	float character_dy = 0;
 	float gravity = 1.3;
 	float lift = -20.0;
 
@@ -46,15 +46,15 @@ int main() {
 		return -1;
 	}
 
-	object = al_create_bitmap(OBJECT_SIZE, OBJECT_SIZE);
-	if (!object) {
+	character = al_create_bitmap(CHARACTER_SIZE, CHARACTER_SIZE);
+	if (!character) {
 		fprintf(stderr, "failed to create object bitmap!\n");
 		al_destroy_display(display);
 		al_destroy_timer(timer);
 		return -1;
 	}
 
-	al_set_target_bitmap(object);
+	al_set_target_bitmap(character);
 
 	al_clear_to_color(al_map_rgb(255, 100, 100));
 
@@ -63,7 +63,7 @@ int main() {
 	event_queue = al_create_event_queue();
 	if (!event_queue) {
 		fprintf(stderr, "failed to create event_queue!\n");
-		al_destroy_bitmap(object);
+		al_destroy_bitmap(character);
 		al_destroy_display(display);
 		al_destroy_timer(timer);
 		return -1;
@@ -88,22 +88,22 @@ int main() {
 
 		if (ev.type == ALLEGRO_EVENT_TIMER) {
 
-			object_dy += gravity;
-			object_y += object_dy;
+			character_dy += gravity;
+			character_y += character_dy;
 
-			if (object_y > SCREEN_H - OBJECT_SIZE) {
-				object_dy *= 0;
-				object_y = SCREEN_H - OBJECT_SIZE;
+			if (character_y > SCREEN_H - CHARACTER_SIZE) {
+				character_dy *= 0;
+				character_y = SCREEN_H - CHARACTER_SIZE;
 			}
 
-			if (object_y < OBJECT_SIZE) {
-				object_dy *= 0;
-				object_y = OBJECT_SIZE;
+			if (character_y < CHARACTER_SIZE) {
+				character_dy *= 0;
+				character_y = CHARACTER_SIZE;
 
 			}
 
-			if (key[KEY_SPACE] && object_dy == 0) {
-				object_dy += lift;
+			if (key[KEY_SPACE] && character_dy == 0) {
+				character_dy += lift;
 			}
 
 
@@ -136,13 +136,13 @@ int main() {
 
 			al_clear_to_color(al_map_rgb(0, 0, 0));
 
-			al_draw_bitmap(object, object_x, object_y, 0);
+			al_draw_bitmap(character, character_x, character_y, 0);
 
 			al_flip_display();
 		}
 	}
 
-	al_destroy_bitmap(object);
+	al_destroy_bitmap(character);
 	al_destroy_timer(timer);
 	al_destroy_display(display);
 	al_destroy_event_queue(event_queue);
