@@ -10,7 +10,7 @@ tydzień 4
 
 tydzień 5 
 
-tydzień 6  dopracowanie skakania,
+tydzień 6 naprawienie skakania
 
 tydzień 7 klikane przciski
 
