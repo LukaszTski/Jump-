@@ -1,5 +1,7 @@
-https://pastebin.com/LBFcRU5m
+kod gry:
+https://pastebin.com/WCqsACx6
 
+aktualna specyfikacja:
 https://docs.google.com/document/d/1ZAOM86nl3FT5MCo3YE3JMGyiR3jFhtHBM3bxSX3QkcE/edit
 
 Harmonogram
